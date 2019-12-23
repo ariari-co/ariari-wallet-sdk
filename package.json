@@ -1,0 +1,28 @@
+{
+  "name": "ariari-wallet-sdk",
+  "version": "0.1.0",
+  "description": "Ariari wallet sdk",
+  "main": "./lib/index.js",
+  "directories": {
+    "lib": "./lib",
+    "test": "./test"
+  },
+  "scripts": {
+    "test": "npm run lint && npm run mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ariari-co/ariari-wallet-sdk.git"
+  },
+  "keywords": [
+    "ariari",
+    "wallet",
+    "sdk"
+  ],
+  "author": "Juan Pablo Lopez <jp@kzlabs.co>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ariari-co/ariari-wallet-sdk/issues"
+  },
+  "homepage": "https://github.com/ariari-co/ariari-wallet-sdk#readme"
+}
