@@ -3,18 +3,35 @@ const MockAdapter = require('axios-mock-adapter');
 describe('StellarAuth', () => {
 
   it('Should have valid default values', () => {
-    const opts = (new AriariWalletSdk()).options;
+    const opts = (new AriariWallet()).options;
     expect(opts.token).to.equal(null);
     expect(opts.authSettings).to.equal(null);
     expect(opts.networkPassphrase).to.equal(StellarSdk.Networks.PUBLIC);
   });
 
   it('Should allow set token', () => {
-    let wallet = testUtils.getWalletInstance({ token: 'myToken' });
-    expect(wallet.options.token).to.equal('myToken');
+    let wallet = testUtils.getWalletInstance({ token: testUtils.getJwtToken() });
+    expect(wallet.options.token).to.equal(testUtils.getJwtToken());
+    expect(wallet.options.accountId).to.equal(testUtils.getJwtAccountId());
 
-    wallet.setToken('token3');
-    expect(wallet.getToken()).to.equal('token3');
+    wallet.setToken(null);
+    expect(wallet.getToken()).to.equal(null);
+    expect(wallet.getAccountId()).to.equal(null);
+
+    wallet.setToken(testUtils.getJwtToken());
+    expect(wallet.getToken()).to.equal(testUtils.getJwtToken());
+    expect(wallet.getAccountId()).to.equal(testUtils.getJwtAccountId());
+  });
+
+  it('Should throw error for invalid token', () => {
+    const badToken = 'myToken';
+
+    expect(() => testUtils.getWalletInstance({ token: badToken }))
+    .to.throw('ariari-wallet.errors.invalid-token');
+
+    let wallet = testUtils.getWalletInstance();
+    expect(() => wallet.setToken(badToken))
+    .to.throw('ariari-wallet.errors.invalid-token');
   });
 
   it('Should allow set authSettings', () => {
@@ -39,7 +56,7 @@ describe('StellarAuth', () => {
     expect(wallet.getAuthSettings().authEndpoint).to.equal(authEndpoint1);
   });
 
-  it('Should throw error for invalid authSettings.authEndpoint', async function() {
+  it('Should throw error for invalid authSettings.authEndpoint', () => {
     const authAccount = StellarSdk.Keypair.random().publicKey();
     const badAuthEndpoint = 'myanchor';
 
@@ -53,7 +70,7 @@ describe('StellarAuth', () => {
     .to.throw('ariari-wallet.errors.invalid-auth-endpoint');
   });
 
-  it('Should throw error for invalid authSettings.authAccount', async function() {
+  it('Should throw error for invalid authSettings.authAccount', () => {
     const badAuthAccount = 'GPDUSO';
     const authEndpoint = 'https://myanchor.co/auth';
 

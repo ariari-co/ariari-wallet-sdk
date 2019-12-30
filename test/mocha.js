@@ -7,7 +7,7 @@ const testUtils = require('./test-utils');
 const chaiAsPromised = require('chai-as-promised');
 
 if (typeof window === 'undefined') {
-  global.AriariWalletSdk = require("../lib/");
+  global.AriariWallet = require("../lib/");
   global.axios = axios;
   global.testUtils = testUtils;
   global.StellarSdk = StellarSdk;
@@ -18,8 +18,8 @@ if (typeof window === 'undefined') {
 } else {
   // eslint-disable-next-line no-undef
   window.StellarSdk = StellarSdk;
-  window.axios = AriariWalletSdk.axios;
-  StellarSdk.axios = AriariWalletSdk.axios;
+  window.axios = AriariWallet.axios;
+  StellarSdk.axios = AriariWallet.axios;
   window.testUtils = testUtils;
   chai.use(chaiAsPromised);
 }

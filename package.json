@@ -1,5 +1,5 @@
 {
-  "name": "ariari-wallet-sdk",
+  "name": "js-ariari-wallet",
   "version": "0.1.0",
   "description": "Ariari wallet sdk",
   "main": "./lib/index.js",
@@ -31,6 +31,7 @@
   "dependencies": {
     "ariari-accounts-sdk": "^0.1.5",
     "axios": "^0.19.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
     "stellar-sdk": "^3.3.0"
   },
